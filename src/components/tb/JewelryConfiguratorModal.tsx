@@ -152,7 +152,7 @@ export function JewelryConfiguratorModal() {
                     className="text-xs uppercase tracking-[0.45em] font-bold"
                     style={{ color: GOLD }}
                   >
-                    Custom Jewelry Configurator
+                    Custom Jewellery Configurator
                   </span>
                 </div>
                 <button
