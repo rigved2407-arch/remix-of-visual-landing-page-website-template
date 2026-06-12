@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import {
+  Gem,
   PencilRuler,
   Sparkles,
   ShieldCheck,
