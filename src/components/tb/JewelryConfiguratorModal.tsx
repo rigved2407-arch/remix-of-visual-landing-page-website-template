@@ -125,11 +125,11 @@ export function JewelryConfiguratorModal() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.97 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[101] flex items-center justify-center p-4"
+            className="fixed inset-0 z-[101] flex items-end sm:items-center justify-center p-0 sm:p-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div
-              className="relative w-full max-w-5xl max-h-[92vh] overflow-y-auto rounded-xl shadow-2xl"
+              className="relative w-full max-w-5xl max-h-[96vh] sm:max-h-[92vh] overflow-y-auto rounded-t-xl sm:rounded-xl shadow-2xl"
               style={{
                 background: 'linear-gradient(160deg, #0d0d0d 0%, #111111 50%, #0a0a0a 100%)',
                 border: `1px solid ${GOLD_BORDER}`,
@@ -140,16 +140,16 @@ export function JewelryConfiguratorModal() {
 
               {/* Header */}
               <div
-                className="sticky top-0 z-10 flex items-center justify-between px-8 py-5"
+                className="sticky top-0 z-10 flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5"
                 style={{
                   background: 'linear-gradient(160deg, #0d0d0d, #111111)',
                   borderBottom: `1px solid rgba(201,168,76,0.2)`,
                 }}
               >
                 <div className="flex items-center gap-3">
-                  <Sparkles className="w-4 h-4" style={{ color: GOLD }} />
+                  <Sparkles className="w-4 h-4 shrink-0" style={{ color: GOLD }} />
                   <span
-                    className="text-xs uppercase tracking-[0.45em] font-bold"
+                    className="text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.45em] font-bold"
                     style={{ color: GOLD }}
                   >
                     Custom Jewellery Configurator
@@ -167,8 +167,8 @@ export function JewelryConfiguratorModal() {
               </div>
 
               {/* Body */}
-              <div className="p-8">
-                <div className="grid lg:grid-cols-2 gap-10">
+              <div className="p-4 sm:p-8">
+                <div className="grid lg:grid-cols-2 gap-6 sm:gap-10">
 
                   {/* ── Left ── */}
                   <div className="space-y-8">
@@ -176,7 +176,7 @@ export function JewelryConfiguratorModal() {
                     {/* Piece type */}
                     <div>
                       <SectionLabel>What would you like to customise?</SectionLabel>
-                      <div className="grid grid-cols-3 gap-2.5">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                         {PIECE_TYPES.map((p) => (
                           <SelectButton key={p.id} active={state.pieceType === p.id} onClick={() => update('pieceType', p.id)}>
                             {p.label}
@@ -188,7 +188,7 @@ export function JewelryConfiguratorModal() {
                     {/* Metal */}
                     <div>
                       <SectionLabel>Metal</SectionLabel>
-                      <div className="grid grid-cols-3 gap-2.5">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                         {METALS.map((m) => {
                           const isActive = state.metal === m.id
                           return (
@@ -214,7 +214,7 @@ export function JewelryConfiguratorModal() {
                     {state.metal === 'gold' && (
                       <div>
                         <SectionLabel>Colour of the Metal</SectionLabel>
-                        <div className="grid grid-cols-2 gap-2.5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                           {GOLD_COLORS.map((c) => {
                             const isActive = state.goldColor === c.id
                             return (

@@ -72,7 +72,7 @@ export default function Shop() {
         <div className="flex flex-wrap items-end gap-6">
           <div>
             <label className="block text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-1">Max · ${maxPrice.toLocaleString()}</label>
-            <input type="range" min={300} max={15000} step={100} value={maxPrice} onChange={e => setMaxPrice(+e.target.value)} className="w-48 accent-primary" />
+            <input type="range" min={300} max={15000} step={100} value={maxPrice} onChange={e => setMaxPrice(+e.target.value)} className="w-full sm:w-48 accent-primary" />
           </div>
           <div>
             <label className="block text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-1">Sort</label>

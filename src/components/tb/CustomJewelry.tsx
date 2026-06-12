@@ -90,7 +90,7 @@ export function CustomJewelry() {
   }
 
   return (
-    <section id="custom" className="relative py-24 lg:py-32 bg-black text-white overflow-hidden">
+    <section id="custom" className="relative py-16 lg:py-32 bg-black text-white overflow-hidden">
       <div className="pointer-events-none absolute -top-32 -left-32 w-[520px] h-[520px] rounded-full bg-accent/10 blur-[120px]" />
       <div className="pointer-events-none absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-accent/10 blur-[140px]" />
 
@@ -202,7 +202,7 @@ export function CustomJewelry() {
                 <div className="text-[11px] uppercase tracking-[0.35em] text-white/55">02 · Metal</div>
                 <div className="text-xs text-white/45">Solid, never plated</div>
               </div>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {metals.map((opt) => {
                   const isActive = metal === opt.id
                   return (

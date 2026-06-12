@@ -21,8 +21,8 @@ export default function Cart() {
         <div className="grid lg:grid-cols-3 gap-12">
           <ul className="lg:col-span-2 divide-y divide-border border-y border-border">
             {detailed.map(({ product, qty, lineTotal }) => (
-              <li key={product.id} className="py-6 flex gap-6">
-                <Link to={`/product/${product.slug}`} className="w-32 h-32 bg-secondary shrink-0 overflow-hidden">
+              <li key={product.id} className="py-6 flex gap-4 sm:gap-6">
+                <Link to={`/product/${product.slug}`} className="w-20 h-20 sm:w-32 sm:h-32 bg-secondary shrink-0 overflow-hidden">
                   <img src={product.img} alt={product.name} className="w-full h-full object-cover" />
                 </Link>
                 <div className="flex-1 flex flex-col">

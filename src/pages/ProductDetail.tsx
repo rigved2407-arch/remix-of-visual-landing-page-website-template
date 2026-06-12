@@ -14,6 +14,7 @@ export default function ProductDetail() {
   const [active, setActive] = useState(0)
   const [pos, setPos] = useState({ x: 50, y: 50 })
   const [zoom, setZoom] = useState(false)
+  const [touchZoom, setTouchZoom] = useState(false)
   const { add } = useCart()
 
   if (!product) {
@@ -45,13 +46,17 @@ export default function ProductDetail() {
               }}
               onMouseEnter={() => setZoom(true)}
               onMouseLeave={() => setZoom(false)}
+              onClick={() => setTouchZoom(!touchZoom)}
             >
               <img
                 src={product.gallery[active]}
                 alt={product.name}
                 className="w-full h-full object-cover transition-transform duration-300"
-                style={{ transform: zoom ? `scale(2)` : 'scale(1)', transformOrigin: `${pos.x}% ${pos.y}%` }}
+                style={{ transform: zoom || touchZoom ? `scale(2)` : 'scale(1)', transformOrigin: `${pos.x}% ${pos.y}%` }}
               />
+              <div className="absolute bottom-3 right-3 bg-background/80 backdrop-blur text-[10px] uppercase tracking-[0.2em] px-2 py-1 rounded sm:hidden">
+                {touchZoom ? 'Tap to zoom out' : 'Tap to zoom'}
+              </div>
             </motion.div>
             <div className="grid grid-cols-3 gap-3 mt-3">
               {product.gallery.map((g, i) => (

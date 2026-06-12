@@ -131,7 +131,7 @@ export default function Checkout() {
           </section>
         </form>
 
-        <aside className="border border-border p-8 self-start lg:sticky lg:top-28">
+        <aside className="border border-border p-6 sm:p-8 self-start lg:sticky lg:top-28">
           <h2 className="font-serif text-xl mb-5">In your bag</h2>
           <ul className="divide-y divide-border mb-5">
             {detailed.map(({ product, qty, lineTotal }) => (

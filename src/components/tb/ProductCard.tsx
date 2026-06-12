@@ -45,14 +45,14 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
         <button
           aria-label={`Wishlist ${product.name}`}
           onClick={(e) => { e.preventDefault(); toast.success(`${product.name} added to wishlist`) }}
-          className="absolute bottom-3 left-3 w-9 h-9 grid place-items-center bg-background/90 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all text-foreground/70 hover:text-destructive"
+          className="absolute bottom-3 left-3 w-9 h-9 grid place-items-center bg-background/90 backdrop-blur rounded-full opacity-100 sm:opacity-0 sm:group-hover:opacity-100 translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0 transition-all text-foreground/70 hover:text-destructive"
         >
           <Heart className="w-4 h-4" />
         </button>
         <button
           aria-label={`Quick add ${product.name}`}
           onClick={(e) => { e.preventDefault(); add(product.id); toast.success(`${product.name} added to bag`) }}
-          className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 bg-primary text-primary-foreground text-[10px] uppercase tracking-[0.2em] font-bold px-3 py-2 rounded-md opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all hover:bg-accent hover:text-accent-foreground"
+          className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 bg-primary text-primary-foreground text-[10px] uppercase tracking-[0.2em] font-bold px-3 py-2 rounded-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100 translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0 transition-all hover:bg-accent hover:text-accent-foreground"
         >
           <Plus className="w-3.5 h-3.5" /> Add
         </button>

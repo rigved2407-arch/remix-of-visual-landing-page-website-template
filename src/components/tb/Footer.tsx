@@ -27,8 +27,8 @@ export function Footer() {
   return (
     <footer className="bg-primary text-primary-foreground pt-16 pb-8">
       <div className="container">
-        <div className="grid lg:grid-cols-5 gap-10 mb-12">
-          <div className="lg:col-span-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 mb-12">
+          <div className="sm:col-span-2 lg:col-span-2">
             <div className="flex items-center gap-3 mb-5">
               <img src={logo} alt="Treasure Box" className="w-14 h-14 rounded-full object-cover ring-1 ring-accent/40 shadow-gold" />
               <img src={wordmark} alt="Treasure Box" className="h-12 w-auto object-contain" />

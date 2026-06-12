@@ -123,17 +123,32 @@ export function Nav() {
                   {l.label}
                 </button>
               ) : (
-                <NavLink
-                  key={l.label}
-                  to={l.to}
-                  end={l.to === '/'}
-                  onClick={() => setOpen(false)}
-                  className={({ isActive }) =>
-                    `py-3 border-b border-primary-foreground/10 text-sm font-medium ${isActive ? 'text-accent' : 'text-primary-foreground/90'}`
-                  }
-                >
-                  {l.label}
-                </NavLink>
+                <div key={l.label}>
+                  <NavLink
+                    to={l.to}
+                    end={l.to === '/'}
+                    onClick={() => setOpen(false)}
+                    className={({ isActive }) =>
+                      `block py-3 border-b border-primary-foreground/10 text-sm font-medium ${isActive ? 'text-accent' : 'text-primary-foreground/90'}`
+                    }
+                  >
+                    {l.label}
+                  </NavLink>
+                  {l.children && (
+                    <div className="pl-4 pb-2">
+                      {l.children.map((c) => (
+                        <NavLink
+                          key={c.label}
+                          to={c.to}
+                          onClick={() => setOpen(false)}
+                          className="block py-2 text-sm text-primary-foreground/70 hover:text-accent"
+                        >
+                          {c.label}
+                        </NavLink>
+                      ))}
+                    </div>
+                  )}
+                </div>
               )
             )}
           </div>
