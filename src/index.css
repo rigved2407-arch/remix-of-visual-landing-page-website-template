@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Bagel+Fat+One&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Monochrome black + white with gold accent */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 6%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 6%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 6%;
+
+    /* Black */
+    --primary: 0 0% 6%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 0 0% 16%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 6%;
+
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 38%;
+
+    /* Gold */
+    --accent: 44 78% 52%;
+    --accent-foreground: 0 0% 6%;
+
+    /* Red for sale / announcement */
+    --destructive: 0 78% 46%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 88%;
+    --input: 0 0% 92%;
+    --ring: 0 0% 6%;
+
+    --radius: 0.5rem;
+
+    --gradient-gold: linear-gradient(135deg, hsl(44 78% 52%), hsl(46 88% 68%), hsl(40 70% 45%));
+    --gradient-green: linear-gradient(180deg, hsl(0 0% 10%), hsl(0 0% 4%));
+    --shadow-soft: 0 10px 30px -10px hsl(0 0% 0% / 0.25);
+    --shadow-card: 0 4px 18px -6px hsl(0 0% 0% / 0.12);
+    --shadow-gold: 0 16px 40px -16px hsl(44 78% 52% / 0.5);
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+}
+
+@layer utilities {
+  .font-serif-display { font-family: 'Cormorant Garamond', serif; }
+  .font-display { font-family: 'Bagel Fat One', cursive; }
+
+  .text-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-ice { color: hsl(var(--muted-foreground)); }
+
+  .bg-gold { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+  .bg-gold-gradient { background: var(--gradient-gold); color: hsl(var(--accent-foreground)); }
+  .bg-green { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+  .bg-green-gradient { background: var(--gradient-green); color: hsl(var(--primary-foreground)); }
+
+  .border-gold { border-color: hsl(var(--accent)); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .shadow-gold { box-shadow: var(--shadow-gold); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.6), transparent);
+  }
+
+  .luxe-card {
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius));
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .luxe-card:hover {
+    border-color: hsl(var(--accent) / 0.6);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .product-card {
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-soft);
+    border-color: hsl(var(--accent) / 0.5);
+  }
+
+  .ice-shimmer {
+    background: linear-gradient(110deg, transparent 30%, hsl(44 80% 70% / 0.25) 50%, transparent 70%);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-marquee { animation: marquee 40s linear infinite; }
+
+  @keyframes pulse-ring {
+    0%, 100% { box-shadow: 0 0 0 0 hsl(var(--accent) / 0.4); }
+    50% { box-shadow: 0 0 0 10px hsl(var(--accent) / 0); }
+  }
+  .pulse-ring { animation: pulse-ring 2.4s ease-out infinite; }
+
+  .grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  .magnetic-link {
+    position: relative;
+    display: inline-block;
+  }
+  .magnetic-link::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -4px;
+    height: 2px;
+    background: hsl(var(--accent));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .4s cubic-bezier(.22,1,.36,1);
+  }
+  .magnetic-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: hsl(0 0% 98%); }
+::-webkit-scrollbar-thumb { background: hsl(var(--primary) / 0.4); }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary)); }
