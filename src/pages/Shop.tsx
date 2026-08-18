@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { products, Category } from '@/data/products'
+import { Category } from '@/data/products'
 import { ProductGrid } from '@/components/tb/ProductCard'
+import { useShopify } from '@/context/ShopifyContext'
 import { motion } from 'framer-motion'
 
 const sortOptions = [
@@ -25,10 +26,12 @@ const titles: Record<Category, { t: string; s: string }> = {
   'for-her': { t: 'For Her', s: 'Refined heirlooms — studs, pendants and engagement-grade fine jewelry.' },
   'watches': { t: 'Watches', s: 'Iced-out timepieces and presidential silhouettes, hand-set in our atelier.' },
   'custom': { t: 'Custom Jewelry', s: 'Made-to-order pieces designed around you. 4–6 week build.' },
+  'other': { t: 'Other', s: 'Everything else from the vault.' },
 }
 
 export default function Shop() {
   const { category } = useParams<{ category?: Category }>()
+  const { products, loading } = useShopify()
   const [sort, setSort] = useState<SortId>('featured')
   const [maxPrice, setMaxPrice] = useState<number>(15000)
 
@@ -42,7 +45,7 @@ export default function Shop() {
       case 'name': list = [...list].sort((a, b) => a.name.localeCompare(b.name)); break
     }
     return list
-  }, [category, sort, maxPrice])
+  }, [products, category, sort, maxPrice])
 
   const meta = category ? titles[category] : { t: 'The Vault', s: 'Every piece. Every category. Every price point.' }
 
@@ -84,7 +87,15 @@ export default function Shop() {
       </div>
 
       <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground mb-6">{filtered.length} pieces</p>
-      <ProductGrid items={filtered} />
+      {loading ? (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="aspect-square bg-secondary animate-pulse" />
+          ))}
+        </div>
+      ) : (
+        <ProductGrid items={filtered} />
+      )}
     </div>
   )
 }

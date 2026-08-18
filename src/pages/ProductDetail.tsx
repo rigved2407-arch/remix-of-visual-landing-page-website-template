@@ -2,13 +2,15 @@ import { Link, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Minus, Plus, ShoppingBag, Truck, ShieldCheck, RotateCcw, ArrowLeft } from 'lucide-react'
-import { getProduct, products } from '@/data/products'
+import { useShopify } from '@/context/ShopifyContext'
 import { useCart } from '@/context/CartContext'
 import { ProductGrid } from '@/components/tb/ProductCard'
+import { formatPrice } from '@/lib/utils'
 import { toast } from 'sonner'
 
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>()
+  const { products, getProduct, loading } = useShopify()
   const product = slug ? getProduct(slug) : undefined
   const [qty, setQty] = useState(1)
   const [active, setActive] = useState(0)
@@ -16,6 +18,23 @@ export default function ProductDetail() {
   const [zoom, setZoom] = useState(false)
   const [touchZoom, setTouchZoom] = useState(false)
   const { add } = useCart()
+
+  if (loading) {
+    return (
+      <div className="pt-16 pb-24 container">
+        <div className="aspect-square lg:aspect-auto lg:grid lg:grid-cols-2 gap-10 lg:gap-16">
+          <div className="aspect-square bg-secondary animate-pulse" />
+          <div className="hidden lg:block space-y-4">
+            <div className="h-6 w-24 bg-secondary animate-pulse" />
+            <div className="h-12 w-3/4 bg-secondary animate-pulse" />
+            <div className="h-8 w-32 bg-secondary animate-pulse" />
+            <div className="h-4 w-full bg-secondary animate-pulse" />
+            <div className="h-4 w-2/3 bg-secondary animate-pulse" />
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   if (!product) {
     return (
@@ -70,7 +89,7 @@ export default function ProductDetail() {
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}>
             <div className="text-[10px] uppercase tracking-[0.4em] text-foreground/50 mb-3">{product.categoryLabel}</div>
             <h1 className="font-serif text-4xl lg:text-6xl leading-[1.05] mb-5">{product.name}</h1>
-            <div className="font-serif text-3xl mb-8">${product.price.toLocaleString()}</div>
+            <div className="font-serif text-3xl mb-8">{formatPrice(product.price, product.currency)}</div>
             <p className="text-foreground/70 leading-relaxed mb-8">{product.description}</p>
 
             <ul className="space-y-2 mb-10">

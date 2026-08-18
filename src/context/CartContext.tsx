@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useReducer, useState, ReactNode } from 'react'
-import { products, Product } from '@/data/products'
+import { Product } from '@/data/products'
+import { useShopify } from '@/context/ShopifyContext'
+import { createShopifyCheckoutUrl } from '@/lib/shopify'
 
 export type CartItem = { productId: string; qty: number }
 type State = { items: CartItem[] }
@@ -10,7 +12,7 @@ type Action =
   | { type: 'CLEAR' }
   | { type: 'HYDRATE'; state: State }
 
-const KEY = 'tb_cart_v1'
+const KEY = 'tb_cart_v2'
 const initial: State = { items: [] }
 
 function reducer(s: State, a: Action): State {
@@ -43,6 +45,7 @@ type Ctx = {
   remove: (productId: string) => void
   setQty: (productId: string, qty: number) => void
   clear: () => void
+  checkout: () => Promise<string | null>
   isOpen: boolean
   open: () => void
   close: () => void
@@ -51,18 +54,20 @@ type Ctx = {
 const CartCtx = createContext<Ctx | null>(null)
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  const { products, isLive } = useShopify()
   const [state, dispatch] = useReducer(reducer, initial)
   const [isOpen, setOpen] = useState(false)
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(KEY)
-      if (raw) dispatch({ type: 'HYDRATE', state: JSON.parse(raw) })
-    } catch {}
+    const raw = localStorage.getItem(KEY)
+    if (raw) {
+      const parsed = JSON.parse(raw)
+      if (parsed && Array.isArray(parsed.items)) dispatch({ type: 'HYDRATE', state: parsed as State })
+    }
   }, [])
 
   useEffect(() => {
-    try { localStorage.setItem(KEY, JSON.stringify(state)) } catch {}
+    localStorage.setItem(KEY, JSON.stringify(state))
   }, [state])
 
   const value = useMemo<Ctx>(() => {
@@ -75,6 +80,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
       .filter(Boolean) as Ctx['detailed']
     const count = detailed.reduce((s, i) => s + i.qty, 0)
     const subtotal = detailed.reduce((s, i) => s + i.lineTotal, 0)
+
+    const checkout = async (): Promise<string | null> => {
+      if (!isLive) return null
+      const lines = state.items
+        .map(i => {
+          const product = products.find(p => p.id === i.productId)
+          if (!product) return null
+          return { merchandiseId: product.variantId, quantity: i.qty }
+        })
+        .filter(Boolean) as { merchandiseId: string; quantity: number }[]
+      if (lines.length === 0) return null
+      return createShopifyCheckoutUrl(lines)
+    }
+
     return {
       items: state.items,
       detailed, count, subtotal,
@@ -82,11 +101,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
       remove: (productId) => dispatch({ type: 'REMOVE', productId }),
       setQty: (productId, qty) => dispatch({ type: 'SET_QTY', productId, qty }),
       clear: () => dispatch({ type: 'CLEAR' }),
+      checkout,
       isOpen,
       open: () => setOpen(true),
       close: () => setOpen(false),
     }
-  }, [state, isOpen])
+  }, [state, isOpen, products, isLive])
 
   return <CartCtx.Provider value={value}>{children}</CartCtx.Provider>
 }

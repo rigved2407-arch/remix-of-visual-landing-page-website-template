@@ -5,14 +5,15 @@ import p4 from '@/assets/p4.jpg'
 import p5 from '@/assets/p5.jpg'
 import p6 from '@/assets/p6.jpg'
 
-export type Category = 'for-him' | 'for-her' | 'watches' | 'custom'
+export type Category = 'for-him' | 'for-her' | 'watches' | 'custom' | 'other'
 
 export type Product = {
   id: string
+  variantId: string
   slug: string
   name: string
   category: Category
-  categoryLabel: 'For Him' | 'For Her' | 'Watches' | 'Custom'
+  categoryLabel: 'For Him' | 'For Her' | 'Watches' | 'Custom' | 'Other'
   price: number
   compareAtPrice?: number
   badge?: 'SALE' | 'NEW' | 'NATURAL'
@@ -23,11 +24,12 @@ export type Product = {
   materials: string
   weight: string
   stock: number
+  currency: string
 }
 
 export const products: Product[] = [
   {
-    id: '1', slug: 'royal-crown-pendant', name: 'Royal Crown Pendant',
+    id: '1', variantId: '1', slug: 'royal-crown-pendant', name: 'Royal Crown Pendant',
     category: 'for-him', categoryLabel: 'For Him',
     price: 1850, compareAtPrice: 2400, badge: 'SALE',
     img: p1, gallery: [p1, p4, p6],
@@ -36,9 +38,10 @@ export const products: Product[] = [
     materials: '14K White Gold · 4.2ct VVS Diamonds',
     weight: '38g',
     stock: 8,
+    currency: 'USD',
   },
   {
-    id: '2', slug: '18k-cuban-bracelet', name: '18K Cuban Bracelet',
+    id: '2', variantId: '2', slug: '18k-cuban-bracelet', name: '18K Cuban Bracelet',
     category: 'for-him', categoryLabel: 'For Him',
     price: 4200, compareAtPrice: 5400, badge: 'SALE',
     img: p2, gallery: [p2, p3, p5],
@@ -47,9 +50,10 @@ export const products: Product[] = [
     materials: '18K Yellow Gold',
     weight: '62g',
     stock: 4,
+    currency: 'USD',
   },
   {
-    id: '3', slug: 'solitaire-studs-1ct', name: 'Solitaire Diamond Studs 1.0ct',
+    id: '3', variantId: '3', slug: 'solitaire-studs-1ct', name: 'Solitaire Diamond Studs 1.0ct',
     category: 'for-her', categoryLabel: 'For Her',
     price: 899, compareAtPrice: 1290, badge: 'SALE',
     img: p3, gallery: [p3, p5, p2],
@@ -58,9 +62,10 @@ export const products: Product[] = [
     materials: 'Platinum · GIA Diamonds',
     weight: '3.4g',
     stock: 12,
+    currency: 'USD',
   },
   {
-    id: '4', slug: 'vvs-diamond-cluster', name: 'VVS Diamond Cluster Pendant',
+    id: '4', variantId: '4', slug: 'vvs-diamond-cluster', name: 'VVS Diamond Cluster Pendant',
     category: 'for-him', categoryLabel: 'For Him',
     price: 6800, compareAtPrice: 8900, badge: 'SALE',
     img: p4, gallery: [p4, p1, p6],
@@ -69,9 +74,10 @@ export const products: Product[] = [
     materials: '14K White Gold · 6.8ct VVS',
     weight: '54g',
     stock: 3,
+    currency: 'USD',
   },
   {
-    id: '5', slug: 'eternity-solitaire-ring', name: 'Eternity Solitaire Ring',
+    id: '5', variantId: '5', slug: 'eternity-solitaire-ring', name: 'Eternity Solitaire Ring',
     category: 'for-her', categoryLabel: 'For Her',
     price: 950, compareAtPrice: 1400, badge: 'NATURAL',
     img: p5, gallery: [p5, p3, p2],
@@ -80,9 +86,10 @@ export const products: Product[] = [
     materials: 'Platinum · 1.5ct Centre Stone',
     weight: '5.8g',
     stock: 6,
+    currency: 'USD',
   },
   {
-    id: '6', slug: 'iced-presidential-watch', name: 'Iced Presidential Watch',
+    id: '6', variantId: '6', slug: 'iced-presidential-watch', name: 'Iced Presidential Watch',
     category: 'watches', categoryLabel: 'Watches',
     price: 12900, compareAtPrice: 16500, badge: 'SALE',
     img: p6, gallery: [p6, p4, p1],
@@ -91,9 +98,10 @@ export const products: Product[] = [
     materials: 'Steel · 18ct Diamonds',
     weight: '210g',
     stock: 2,
+    currency: 'USD',
   },
   {
-    id: '7', slug: 'heart-pendant-rose', name: 'Heart Pavé Pendant',
+    id: '7', variantId: '7', slug: 'heart-pendant-rose', name: 'Heart Pavé Pendant',
     category: 'for-her', categoryLabel: 'For Her',
     price: 449, compareAtPrice: 699, badge: 'SALE',
     img: p3, gallery: [p3, p5],
@@ -102,9 +110,10 @@ export const products: Product[] = [
     materials: '14K Rose Gold · Natural Diamonds',
     weight: '4.1g',
     stock: 15,
+    currency: 'USD',
   },
   {
-    id: '8', slug: 'custom-iced-portrait', name: 'Custom Iced Portrait Pendant',
+    id: '8', variantId: '8', slug: 'custom-iced-portrait', name: 'Custom Iced Portrait Pendant',
     category: 'custom', categoryLabel: 'Custom',
     price: 2950,
     badge: 'NEW',
@@ -114,6 +123,7 @@ export const products: Product[] = [
     materials: 'Solid Gold · VVS Diamonds',
     weight: 'Varies',
     stock: 99,
+    currency: 'USD',
   },
 ]
 

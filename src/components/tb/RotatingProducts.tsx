@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ProductGrid } from '@/components/tb/ProductCard'
-import { products } from '@/data/products'
+import { useShopify } from '@/context/ShopifyContext'
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -12,21 +12,22 @@ function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
-function pickRandom(count: number) {
+function pickRandom(list: ReturnType<typeof useShopify>['products'], count: number) {
   // Pull at least one from each category when possible
-  const cats = Array.from(new Set(products.map((p) => p.category)))
-  const picked: typeof products = []
+  const cats = Array.from(new Set(list.map((p) => p.category)))
+  const picked: typeof list = []
   cats.forEach((c) => {
-    const pool = products.filter((p) => p.category === c)
+    const pool = list.filter((p) => p.category === c)
     if (pool.length) picked.push(pool[Math.floor(Math.random() * pool.length)])
   })
-  const rest = shuffle(products.filter((p) => !picked.includes(p)))
+  const rest = shuffle(list.filter((p) => !picked.includes(p)))
   return [...picked, ...rest].slice(0, count)
 }
 
 export function RotatingProducts() {
+  const { products } = useShopify()
   const [seed, setSeed] = useState(0)
-  const list = useMemo(() => pickRandom(8), [seed])
+  const list = useMemo(() => pickRandom(products, 8), [products, seed])
 
   useEffect(() => {
     const t = setInterval(() => setSeed((s) => s + 1), 7000)

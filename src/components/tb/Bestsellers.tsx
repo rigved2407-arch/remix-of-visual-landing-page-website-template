@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 import { ProductGrid } from '@/components/tb/ProductCard'
-import { products } from '@/data/products'
+import { useShopify } from '@/context/ShopifyContext'
 
 export function Bestsellers() {
+  const { products } = useShopify()
   const featured = products.slice(0, 8)
   return (
     <section id="bestsellers" className="py-16 lg:py-24 bg-black">
@@ -21,6 +22,7 @@ export function Bestsellers() {
 }
 
 export function UnderBudget() {
+  const { products } = useShopify()
   const list = products.filter(p => p.price < 1000)
   if (list.length === 0) return null
   return (

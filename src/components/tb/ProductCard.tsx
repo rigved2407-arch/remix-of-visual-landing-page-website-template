@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Plus, Heart } from 'lucide-react'
 import { Product } from '@/data/products'
 import { useCart } from '@/context/CartContext'
+import { formatPrice } from '@/lib/utils'
 import { toast } from 'sonner'
 
 const badgeStyles: Record<NonNullable<Product['badge']>, string> = {
@@ -63,9 +64,9 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
           <Link to={`/product/${product.slug}`} className="hover:text-primary transition-colors">{product.name}</Link>
         </h3>
         <div className="flex items-baseline gap-2 mt-auto pt-2">
-          <span className="font-serif text-xl text-primary font-semibold">${product.price.toLocaleString()}</span>
+          <span className="font-serif text-xl text-primary font-semibold">{formatPrice(product.price, product.currency)}</span>
           {product.compareAtPrice && (
-            <span className="text-sm text-muted-foreground line-through">${product.compareAtPrice.toLocaleString()}</span>
+            <span className="text-sm text-muted-foreground line-through">{formatPrice(product.compareAtPrice, product.currency)}</span>
           )}
         </div>
       </div>

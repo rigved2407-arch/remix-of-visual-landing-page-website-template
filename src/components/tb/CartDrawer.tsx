@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { X, Minus, Plus, Trash2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useCart } from '@/context/CartContext'
+import { formatPrice } from '@/lib/utils'
 import { useEffect } from 'react'
 
 export function CartDrawer() {
@@ -65,7 +66,7 @@ export function CartDrawer() {
                               <Plus className="w-3 h-3" />
                             </button>
                           </div>
-                          <div className="font-serif text-lg">${lineTotal.toLocaleString()}</div>
+                          <div className="font-serif text-lg">{formatPrice(lineTotal, product.currency)}</div>
                         </div>
                       </div>
                       <button aria-label="Remove" onClick={() => remove(product.id)} className="text-foreground/40 hover:text-foreground self-start">
@@ -81,7 +82,7 @@ export function CartDrawer() {
               <footer className="border-t border-border px-6 py-5 space-y-4">
                 <div className="flex items-baseline justify-between">
                   <span className="text-xs uppercase tracking-[0.3em] text-foreground/60">Subtotal</span>
-                  <span className="font-serif text-3xl">${subtotal.toLocaleString()}</span>
+                  <span className="font-serif text-3xl">{formatPrice(subtotal, detailed[0]?.product.currency)}</span>
                 </div>
                 <p className="text-[11px] text-foreground/50">Shipping and taxes calculated at checkout.</p>
                 <Link

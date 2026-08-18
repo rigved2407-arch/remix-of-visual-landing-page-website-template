@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
+import { formatPrice } from '@/lib/utils'
 
 export default function Cart() {
   const { detailed, subtotal, setQty, remove, count } = useCart()
@@ -40,7 +41,7 @@ export default function Cart() {
                     </button>
                   </div>
                 </div>
-                <div className="font-serif text-2xl whitespace-nowrap">${lineTotal.toLocaleString()}</div>
+                <div className="font-serif text-2xl whitespace-nowrap">{formatPrice(lineTotal, product.currency)}</div>
               </li>
             ))}
           </ul>
@@ -48,10 +49,10 @@ export default function Cart() {
           <aside className="border border-border p-8 self-start sticky top-28">
             <h2 className="font-serif text-2xl mb-6">Order Summary</h2>
             <div className="space-y-3 text-sm">
-              <div className="flex justify-between"><span className="text-foreground/60">Subtotal</span><span className="tabular-nums">${subtotal.toLocaleString()}</span></div>
-              <div className="flex justify-between"><span className="text-foreground/60">Shipping</span><span className="tabular-nums">Free</span></div>
+              <div className="flex justify-between"><span className="text-foreground/60">Subtotal</span><span className="tabular-nums">{formatPrice(subtotal, detailed[0]?.product.currency)}</span></div>
+              <div className="flex justify-between"><span className="text-foreground/60">Shipping</span><span className="tabular-nums">Calculated at checkout</span></div>
               <div className="border-t border-border pt-3 flex justify-between font-serif text-2xl items-baseline">
-                <span>Total</span><span className="tabular-nums">${total.toLocaleString()}</span>
+                <span>Total</span><span className="tabular-nums">{formatPrice(total, detailed[0]?.product.currency)}</span>
               </div>
             </div>
             <Link to="/checkout" className="block text-center mt-6 bg-foreground text-background py-4 text-xs uppercase tracking-[0.3em] hover:bg-foreground/80">Checkout</Link>

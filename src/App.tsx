@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Layout } from './components/tb/Layout'
+import { ShopifyProvider } from './context/ShopifyContext'
 import { CartProvider } from './context/CartContext'
 import { ConfiguratorProvider } from './context/ConfiguratorContext'
 import { JewelryConfiguratorModal } from './components/tb/JewelryConfiguratorModal'
@@ -33,11 +34,13 @@ const router = createBrowserRouter([
 
 export default function App() {
   return (
-    <CartProvider>
-      <ConfiguratorProvider>
-        <RouterProvider router={router} />
-        <JewelryConfiguratorModal />
-      </ConfiguratorProvider>
-    </CartProvider>
+    <ShopifyProvider>
+      <CartProvider>
+        <ConfiguratorProvider>
+          <RouterProvider router={router} />
+          <JewelryConfiguratorModal />
+        </ConfiguratorProvider>
+      </CartProvider>
+    </ShopifyProvider>
   )
 }
