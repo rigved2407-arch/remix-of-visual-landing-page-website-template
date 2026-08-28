@@ -119,7 +119,15 @@ function mapCategory(tags: string[], productType: string): Category {
   }
   const pt = productType.trim().toLowerCase().replace(/\s+/g, '-')
   const fromType = CATEGORY_TAGS[pt]
-  return fromType ?? 'other'
+  if (fromType) return fromType
+  for (const t of tags) {
+    const tl = t.trim().toLowerCase()
+    if (tl.includes('him') || tl.includes('men') || tl.includes('male') || tl.includes('boy')) return 'for-him'
+    if (tl.includes('her') || tl.includes('women') || tl.includes('female') || tl.includes('girl')) return 'for-her'
+    if (tl.includes('watch') || tl.includes('timepiece')) return 'watches'
+    if (tl.includes('custom') || tl.includes('personaliz')) return 'custom'
+  }
+  return 'other'
 }
 
 const FALLBACK_IMAGE =

@@ -19,6 +19,7 @@ const cats: { id: '' | Category; label: string }[] = [
   { id: 'for-her', label: 'For Her' },
   { id: 'watches', label: 'Watches' },
   { id: 'custom', label: 'Custom' },
+  { id: 'other', label: 'Other' },
 ]
 
 const titles: Record<Category, { t: string; s: string }> = {
