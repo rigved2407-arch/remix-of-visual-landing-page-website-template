@@ -8,7 +8,7 @@ export const SHOPIFY_STOREFRONT_TOKEN: string =
 
 export const shopifyConfigured = SHOPIFY_STORE_DOMAIN !== ''
 
-const API_VERSION = '2025-01'
+const API_VERSION = '2024-10'
 const API_URL = `https://${SHOPIFY_STORE_DOMAIN}/api/${API_VERSION}/graphql.json`
 
 export type ShopLine = { merchandiseId: string; quantity: number }
