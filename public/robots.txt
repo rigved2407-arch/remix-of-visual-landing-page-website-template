@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /cart
+Disallow: /checkout
+Disallow: /order-confirmed
 
-Sitemap: /sitemap.xml
+Sitemap: https://treasureboxus.com/sitemap.xml

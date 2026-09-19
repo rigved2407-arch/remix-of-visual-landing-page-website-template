@@ -3,10 +3,12 @@ import { Nav } from './Nav'
 import { Footer } from './Footer'
 import { CartDrawer } from './CartDrawer'
 import { Toaster } from 'sonner'
+import { SEO } from './SEO'
 
 export function Layout() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
+      <SEO />
       <Nav />
       <main className="flex-1">
         <Outlet />
