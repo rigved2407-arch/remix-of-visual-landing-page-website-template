@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { useShopify } from '@/context/ShopifyContext'
 import type { Product } from '@/data/products'
 
-const SITE_URL = 'https://treasureboxus.com'
+const SITE_URL = 'https://www.treasureboxus.com'
 const BRAND = 'Treasure Box'
 const DEFAULT_DESCRIPTION = 'Shop iced-out chains, diamond jewelry, luxury watches, and custom pieces from Treasure Box, a New York jewelry house shipping worldwide.'
 
