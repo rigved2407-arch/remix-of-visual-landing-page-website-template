@@ -38,7 +38,7 @@ function upsertLink(rel: string, href: string) {
 
 export function SEO() {
   const { pathname } = useLocation()
-  const { getProduct } = useShopify()
+  const { getProduct, products } = useShopify()
   const slug = pathname.startsWith('/product/') ? pathname.split('/').pop() : undefined
   const product = slug ? getProduct(slug) : undefined
 
@@ -87,7 +87,15 @@ export function SEO() {
     upsertMeta('property', 'og:type', config.type ?? 'website')
     upsertMeta('property', 'og:url', canonical)
     upsertMeta('property', 'og:image', image)
+    upsertMeta('property', 'og:image:alt', config.product?.name ?? `${BRAND} jewelry and luxury watches`)
+    upsertMeta('property', 'og:image:type', 'image/jpeg')
+    upsertMeta('property', 'og:image:width', '1200')
+    upsertMeta('property', 'og:image:height', '630')
+    upsertMeta('property', 'og:site_name', BRAND)
+    upsertMeta('property', 'og:locale', 'en_US')
     upsertMeta('name', 'twitter:card', 'summary_large_image')
+    upsertMeta('name', 'twitter:site', '@treasureboxus')
+    upsertMeta('name', 'twitter:creator', '@treasureboxus')
     upsertMeta('name', 'twitter:title', config.title)
     upsertMeta('name', 'twitter:description', config.description)
     upsertMeta('name', 'twitter:image', image)
@@ -110,6 +118,22 @@ export function SEO() {
       },
       { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, name: BRAND, url: SITE_URL, publisher: { '@id': `${SITE_URL}/#organization` } },
     ]
+    const breadcrumbItems = [{ name: 'Home', url: '/' }]
+    if (pathname.startsWith('/product/') && config.product) {
+      breadcrumbItems.push({ name: 'Shop', url: '/shop' }, { name: config.product.name, url: pathname })
+    } else if (pathname !== '/' && !config.noindex) {
+      breadcrumbItems.push({ name: config.title.split(' | ')[0], url: pathname })
+    }
+    graph.push({
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbItems.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.name, item: `${SITE_URL}${item.url}` })),
+    })
+    if ((pathname === '/shop' || pathname.startsWith('/shop/')) && products.length > 0) {
+      graph.push({
+        '@type': 'ItemList',
+        itemListElement: products.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.name, url: `${SITE_URL}/product/${item.slug}` })),
+      })
+    }
     if (config.product) {
       graph.push({
         '@type': 'Product',
@@ -125,7 +149,7 @@ export function SEO() {
     document.head.appendChild(script)
 
     return () => document.getElementById(id)?.remove()
-  }, [config.description, config.image, config.noindex, config.product, config.title, config.type, pathname])
+  }, [config.description, config.image, config.noindex, config.product, config.title, config.type, pathname, products])
 
   return null
 }
