@@ -1,0 +1,1 @@
+{"routes":[{"path":"/","title":"Home"},{"path":"/shop","title":"Shop"},{"path":"/shop/:category","title":"Shop category"},{"path":"/product/:slug","title":"Product"},{"path":"/cart","title":"Cart"},{"path":"/checkout","title":"Checkout"},{"path":"/order-confirmed","title":"Order confirmed"},{"path":"/about","title":"About"},{"path":"/contact","title":"Contact"}]}

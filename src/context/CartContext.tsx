@@ -59,10 +59,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isOpen, setOpen] = useState(false)
 
   useEffect(() => {
-    const raw = localStorage.getItem(KEY)
-    if (raw) {
-      const parsed = JSON.parse(raw)
-      if (parsed && Array.isArray(parsed.items)) dispatch({ type: 'HYDRATE', state: parsed as State })
+    try {
+      const raw = localStorage.getItem(KEY)
+      if (!raw) return
+      const parsed: unknown = JSON.parse(raw)
+      if (!parsed || typeof parsed !== 'object' || !Array.isArray((parsed as { items?: unknown }).items)) return
+      const items = (parsed as { items: unknown[] }).items
+        .filter((item): item is { productId: string; qty: number } => {
+          if (!item || typeof item !== 'object') return false
+          const candidate = item as { productId?: unknown; qty?: unknown }
+          return typeof candidate.productId === 'string' && typeof candidate.qty === 'number' && Number.isFinite(candidate.qty) && candidate.qty > 0
+        })
+        .map(item => ({ productId: item.productId, qty: Math.max(1, Math.floor(item.qty)) }))
+      dispatch({ type: 'HYDRATE', state: { items } })
+    } catch {
+      localStorage.removeItem(KEY)
     }
   }, [])
 

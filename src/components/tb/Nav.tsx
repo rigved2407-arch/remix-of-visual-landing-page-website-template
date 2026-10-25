@@ -90,10 +90,10 @@ export function Nav() {
         </nav>
 
         <div className="flex items-center gap-1">
-          <button aria-label="Search" className="p-2.5 hover:text-accent text-primary-foreground/80 transition-colors">
+          <Link to="/shop" aria-label="Browse the shop" title="Browse the shop" className="p-2.5 hover:text-accent text-primary-foreground/80 transition-colors">
             <Search className="w-5 h-5" />
-          </button>
-          <Link to="/account" aria-label="Account" className="p-2.5 hover:text-accent text-primary-foreground/80 transition-colors hidden sm:block">
+          </Link>
+          <Link to="/contact" aria-label="Contact concierge" title="Contact concierge" className="p-2.5 hover:text-accent text-primary-foreground/80 transition-colors hidden sm:block">
             <User className="w-5 h-5" />
           </Link>
           <button onClick={openCart} aria-label="Cart" className="p-2.5 hover:text-accent text-primary-foreground/80 transition-colors relative">

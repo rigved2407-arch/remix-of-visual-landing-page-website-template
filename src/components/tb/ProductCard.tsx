@@ -26,18 +26,20 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
       transition={{ duration: 0.5, delay: (index % 4) * 0.06 }}
       className="product-card group flex flex-col"
     >
-      <Link to={`/product/${product.slug}`} className="relative block aspect-square bg-secondary overflow-hidden">
-        <img
-          src={product.img}
-          alt={product.name}
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1200ms]"
-        />
-        {product.badge && (
-          <span className={`absolute top-3 left-3 text-[10px] uppercase tracking-[0.15em] font-bold px-3 py-1 rounded ${badgeStyles[product.badge]}`}>
-            {product.badge}
-          </span>
-        )}
+      <div className="relative aspect-square bg-secondary overflow-hidden">
+        <Link to={`/product/${product.slug}`} className="absolute inset-0 block" aria-label={`View ${product.name}`}>
+          <img
+            src={product.img}
+            alt={product.name}
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+          />
+          {product.badge && (
+            <span className={`absolute top-3 left-3 text-[10px] uppercase tracking-[0.15em] font-bold px-3 py-1 rounded ${badgeStyles[product.badge]}`}>
+              {product.badge}
+            </span>
+          )}
+        </Link>
         {discount > 0 && (
           <span className="absolute top-3 right-3 bg-accent text-accent-foreground text-[11px] font-bold rounded-full w-12 h-12 grid place-items-center shadow-gold">
             -{discount}%
@@ -57,7 +59,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
         >
           <Plus className="w-3.5 h-3.5" /> Add
         </button>
-      </Link>
+      </div>
       <div className="p-4 flex flex-col gap-1.5 flex-1">
         <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">{product.categoryLabel}</div>
         <h3 className="font-medium text-sm leading-snug min-h-[2.5rem]">

@@ -129,6 +129,9 @@ export function JewelryConfiguratorModal() {
             onClick={(e) => e.stopPropagation()}
           >
             <div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="configurator-title"
               className="relative w-full max-w-5xl max-h-[96vh] sm:max-h-[92vh] overflow-y-auto rounded-t-xl sm:rounded-xl shadow-2xl"
               style={{
                 background: 'linear-gradient(160deg, #0d0d0d 0%, #111111 50%, #0a0a0a 100%)',
@@ -149,6 +152,7 @@ export function JewelryConfiguratorModal() {
                 <div className="flex items-center gap-3">
                   <Sparkles className="w-4 h-4 shrink-0" style={{ color: GOLD }} />
                   <span
+                    id="configurator-title"
                     className="text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.45em] font-bold"
                     style={{ color: GOLD }}
                   >
@@ -157,6 +161,7 @@ export function JewelryConfiguratorModal() {
                 </div>
                 <button
                   onClick={handleClose}
+                  aria-label="Close custom jewellery configurator"
                   className="w-9 h-9 rounded-full flex items-center justify-center transition-all text-white/50 hover:text-white"
                   style={{ border: `1px solid rgba(201,168,76,0.3)` }}
                   onMouseEnter={(e) => (e.currentTarget.style.borderColor = GOLD)}

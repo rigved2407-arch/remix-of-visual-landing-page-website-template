@@ -31,7 +31,8 @@ const titles: Record<Category, { t: string; s: string }> = {
 }
 
 export default function Shop() {
-  const { category } = useParams<{ category?: Category }>()
+  const { category: rawCategory } = useParams<{ category?: string }>()
+  const category = rawCategory && rawCategory in titles ? rawCategory as Category : undefined
   const { products, loading } = useShopify()
   const [sort, setSort] = useState<SortId>('featured')
   const [maxPrice, setMaxPrice] = useState<number>(15000)
